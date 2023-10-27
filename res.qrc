@@ -56,4 +56,7 @@
     <qresource prefix="/icon">
         <file>resources/logo.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>myqss.qss</file>
+    </qresource>
 </RCC>

@@ -1,9 +1,15 @@
 #include "titlebar.h"
 
 #include <QHBoxLayout>
+#include <QMenu>
+#include <QPushButton>
+#include <QLabel>
+#include <qaction.h>
 
 #pragma comment(lib, "user32.lib")
 #include <qt_windows.h>
+#include "myqss.h"
+
 
 
 TitleBar::TitleBar(QWidget* p):
@@ -16,6 +22,7 @@ TitleBar::TitleBar(QWidget* p):
 
 TitleBar::~TitleBar()
 {
+
 }
 
 void TitleBar::initUI()
@@ -25,49 +32,56 @@ void TitleBar::initUI()
     this->setFixedHeight(32 + 5 * 2);
     this->setStyleSheet("background-color:rgb(54,54,54)");
 
-    m_pLogo = new QLabel(this);
-    m_pLogo->setFixedSize(32, 32);
-    m_pLogo->setStyleSheet("background-image:url(:/LessWidgetPro/resources/titlebar/title_icon.png);border:none");
+    m_pLogoBtn = new QPushButton(this);
+    m_pLogoBtn->setText("OnePlayerHuck");
 
-    m_pTitleTextLabel = new QLabel(this);
-    m_pTitleTextLabel->setText(u8"你哈啊");
-    m_pTitleTextLabel->setFixedWidth(120);
-    m_pTitleTextLabel->setStyleSheet("QLabel{font-family: Microsoft YaHei; \
-        font-size:18px; \
-        color:#BDC8E2;background-color:rgb(54,54,54);}");
+    m_pLogoBtn->setFixedSize(145, 32);
+    m_pLogoBtn->setStyleSheet(QString::fromStdString(logo_button_qss));
+
+    QMenu*pMenu=new QMenu(this);
+    pMenu->setStyleSheet(QString::fromStdString(menu_qss));
+
+    QAction*pActOpenFile=new QAction(u8"打开文件",this);
+    QAction*pActOpenDir=new QAction(u8"打开文件夹",this);
+    QAction*pActSpecification=new QAction("开发说明",this);
+    QAction *pActQuit=new QAction("退出",this);
+
+    pMenu->addAction(pActOpenFile);
+    pMenu->addAction(pActOpenDir);
+    pMenu->addAction(pActSpecification);
+    pMenu->addAction(pActQuit);
+
+    m_pLogoBtn->setMenu(pMenu);
+
+    m_pMinimodeBtn=new QPushButton(this);
+    m_pMinimodeBtn->setFixedSize(32,32);
+    m_pMinimodeBtn->setStyleSheet(QString::fromStdString(minimode_qss));
 
     m_pSetBtn = new QPushButton(this);
     m_pSetBtn->setFixedSize(32, 32);
-    m_pSetBtn->setStyleSheet("QPushButton{background-image:url(:/LessWidgetPro/resources/titlebar/set.svg);border:none}" \
-        "QPushButton:hover{" \
-        "background-color:rgb(99, 99, 99);" \
-        "background-image:url(:/LessWidgetPro/resources/titlebar/set_hover.svg);border:none;}");
+    m_pSetBtn->setStyleSheet(QString::fromStdString(settop_qss));
+
 
     m_pMinBtn = new QPushButton(this);
     m_pMinBtn->setFixedSize(32, 32);
-    m_pMinBtn->setStyleSheet("QPushButton{background-image:url(:/LessWidgetPro/resources/titlebar/min.svg);border:none}" \
-        "QPushButton:hover{" \
-        "background-color:rgb(99, 99, 99);" \
-        "background-image:url(:/LessWidgetPro/resources/titlebar/min_hover.svg);border:none;}");
+    m_pMinBtn->setStyleSheet(QString::fromStdString(min_qss));
 
     m_pMaxBtn = new QPushButton(this);
     m_pMaxBtn->setFixedSize(32, 32);
-    m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/LessWidgetPro/resources/titlebar/normal.svg);border:none}" \
-        "QPushButton:hover{" \
-        "background-color:rgb(99, 99, 99);" \
-        "background-image:url(:/LessWidgetPro/resources/titlebar/normal_hover.svg);border:none;}");
+    m_pMaxBtn->setStyleSheet(QString::fromStdString(max_qss));
 
     m_pCloseBtn = new QPushButton(this);
     m_pCloseBtn->setFixedSize(32, 32);
-    m_pCloseBtn->setStyleSheet("QPushButton{background-image:url(:/LessWidgetPro/resources/titlebar/close.svg);border:none}" \
-        "QPushButton:hover{" \
-        "background-color:rgb(99, 99, 99);" \
-        "background-image:url(:/LessWidgetPro/resources/titlebar/close_hover.svg);border:none;}");
+    m_pCloseBtn->setStyleSheet(QString::fromStdString(close_qss));
 
     QHBoxLayout* pHlay = new QHBoxLayout(this);
-    pHlay->addWidget(m_pLogo);
-    pHlay->addWidget(m_pTitleTextLabel);
+    pHlay->addWidget(m_pLogoBtn);
+
     pHlay->addStretch();
+    pHlay->addWidget(m_pMinimodeBtn);
+    QSpacerItem*pItem=new QSpacerItem(20,20,QSizePolicy::Fixed,QSizePolicy::Fixed);
+    pHlay->addSpacerItem(pItem);
+
     pHlay->addWidget(m_pSetBtn);
     QSpacerItem* pItem1 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Fixed);
     pHlay->addSpacerItem(pItem1);
@@ -120,7 +134,7 @@ void TitleBar::onClicked()
          if (pWindow->isMaximized())
          {
              pWindow->showNormal();
-             m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/LessWidgetPro/resources/titlebar/normal.svg);border:none}" \
+             m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/normal.svg);border:none}" \
                  "QPushButton:hover{" \
                  "background-color:rgb(99, 99, 99);" \
                  "background-image:url(:/LessWidgetPro/resources/titlebar/normal_hover.svg);border:none;}");
@@ -128,10 +142,10 @@ void TitleBar::onClicked()
          else
          {
              pWindow->showMaximized();
-             m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/LessWidgetPro/resources/titlebar/max.svg);border:none}" \
+             m_pMaxBtn->setStyleSheet("QPushButton{background-image:url(:/titleBar/resources/titleBar/max.svg}" \
                  "QPushButton:hover{" \
                  "background-color:rgb(99, 99, 99);" \
-                 "background-image:url(:/LessWidgetPro/resources/titlebar/max_hover.svg);border:none;}");
+                 "background-image:url(:/titleBar/resources/titleBar/max_hover.svg);border:none;}");
          }
      }
      else if (pButton == m_pCloseBtn)

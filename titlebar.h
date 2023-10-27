@@ -25,8 +25,8 @@ signals:
     void sig_close();
 
 private:
-    QLabel* m_pLogo;
-    QLabel* m_pTitleTextLabel;
+    QPushButton*m_pLogoBtn=nullptr;
+    QPushButton *m_pMinimodeBtn=nullptr;
 
     QPushButton* m_pSetBtn;
     QPushButton* m_pMinBtn;

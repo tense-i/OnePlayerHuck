@@ -10,7 +10,7 @@ class VideoWidget : public QWidget
 public:
     explicit VideoWidget(QWidget *parent = nullptr);
     ~VideoWidget();
-
+    //十
 private slots:
 
 signals:

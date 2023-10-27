@@ -11,18 +11,25 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    btnvolume.cpp \
     cbottomctrlbar.cpp \
     crightplaylist.cpp \
+    dlgvolumesilder.cpp \
     framelesswidgetbase.cpp \
     main.cpp \
+    playbtngroupwidget.cpp \
     titlebar.cpp \
     videowidget.cpp \
     widget.cpp
 
 HEADERS += \
+    btnvolume.h \
     cbottomctrlbar.h \
     crightplaylist.h \
+    dlgvolumesilder.h \
     framelesswidgetbase.h \
+    myqss.h \
+    playbtngroupwidget.h \
     titlebar.h \
     videowidget.h \
     widget.h
