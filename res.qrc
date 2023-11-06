@@ -18,6 +18,7 @@
         <file>resources/playctrlBar/stop_hover.svg</file>
         <file>resources/playctrlBar/toolbox.svg</file>
         <file>resources/playctrlBar/toolbox_hover.svg</file>
+        <file>resources/playctrlBar/bofang.svg</file>
     </qresource>
     <qresource prefix="/timeslider">
         <file>resources/timeslider/icon_close.png</file>

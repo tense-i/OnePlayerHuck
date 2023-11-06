@@ -22,7 +22,7 @@ CBottomCtrlBar::CBottomCtrlBar(QWidget *parent)
     m_pLabCurPlayTime->setStyleSheet(label_qss);
 
     m_pLabTotalTime=new QLabel(this);
-    m_pLabTotalTime->setText("01:02:03");
+    m_pLabTotalTime->setText("01:20:30");
     m_pLabTotalTime->setAlignment(Qt::AlignRight);
     m_pLabTotalTime->setFixedSize(160,32);
     m_pLabTotalTime->setStyleSheet(label_qss);
@@ -62,7 +62,7 @@ CBottomCtrlBar::CBottomCtrlBar(QWidget *parent)
    pHLay->addSpacing(18);
    pHLay->addWidget(m_pBtnFullscreen);
 
-   showTimeLabel(false);
+  // showTimeLabel(false);
 
    connect(m_pPlayBtnWidget,&PlayBtnGroupWidget::sig_play,this,&CBottomCtrlBar::sig_play);
    connect(m_pPlayBtnWidget,&PlayBtnGroupWidget::sig_stop,this,&CBottomCtrlBar::sig_stop);

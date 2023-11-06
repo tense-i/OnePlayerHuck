@@ -27,7 +27,6 @@ signals:
 private:
     QPushButton*m_pLogoBtn=nullptr;
     QPushButton *m_pMinimodeBtn=nullptr;
-
     QPushButton* m_pSetBtn;
     QPushButton* m_pMinBtn;
     QPushButton* m_pMaxBtn;

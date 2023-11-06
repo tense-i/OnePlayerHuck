@@ -16,7 +16,6 @@ TitleBar::TitleBar(QWidget* p):
     QWidget(p)
 {
     this->setAttribute(Qt::WA_DeleteOnClose);
-
     initUI();
 }
 
