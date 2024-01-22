@@ -16,9 +16,9 @@ class Widget : public FrameLessWidgetBase
     Q_OBJECT
 private:
    TitleBar* m_pTitleBar=nullptr;
-    VideoWidget* m_pVideoWidget=nullptr;
+   VideoWidget* m_pVideoWidget=nullptr;
    CBottomCtrlBar* m_pBottomCtrlBar=nullptr;
-    CRightPlayList* m_pRightPlayList=nullptr;
+   CRightPlayList* m_pRightPlayList=nullptr;
 private:
     void initUI();
 private slots:
@@ -28,6 +28,7 @@ private slots:
     void onPlay();
 
 private:
+    //独享智能指针、保证只有一份实例
     std::unique_ptr<cVlcKits> m_pVlc;
     bool m_isPlay=false;
 
@@ -42,7 +43,6 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent *event) override;
     virtual void keyPressEvent(QKeyEvent *event) override;
 };
-
 
 
 #endif // WIDGET_H

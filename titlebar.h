@@ -15,6 +15,7 @@ private:
     void initUI();
 
 private:
+    //实现拖动效果
     void mousePressEvent(QMouseEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
 

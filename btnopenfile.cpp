@@ -87,7 +87,7 @@ BtnOpenFile::BtnOpenFile(QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground);  //设置窗口背景透明, 为圆角窗口准备
 
     connect(m_pBtnOpenFile, &QPushButton::clicked, this, &BtnOpenFile::on_openFile);
-    connect(pactOpenDir,&QAction::triggered,this,&BtnOpenFile::on_openFile);
+    connect(pActOpenFile,&QAction::triggered,this,&BtnOpenFile::on_openFile);
     connect(pactOpenDir,&QAction::triggered,this,&BtnOpenFile::on_OpenFloder);
 
 }
@@ -163,6 +163,5 @@ bool BtnOpenFile::eventFilter(QObject *watched, QEvent *event)
             return true;
         }
     }
-
     return false;
 }

@@ -26,10 +26,9 @@ int cVlcKits::getCurIndex() const
     return curIndex;
 }
 
-std::vector<libvlc_time_t> cVlcKits::getTimeVector() const
+std::vector<libvlc_time_t> & cVlcKits::getTimeVector()
 {
     return m_timeVector;
-
 }
 
 libvlc_media_player_t *cVlcKits::media_player() const
@@ -54,7 +53,12 @@ void cVlcKits::setVideoPos(int value)
     libvlc_media_player_set_position(m_pMediaPlayer,value/100.0);
 }
 
+
 //全局函数、不是类的成员函数
+
+/*
+ * p_data:外部的任何类型
+ */
 void vlc_callback( const struct libvlc_event_t *p_event, void *p_data )
 {
     cVlcKits * pWidget=static_cast<cVlcKits*> (p_data);
@@ -131,15 +135,20 @@ void vlc_callback( const struct libvlc_event_t *p_event, void *p_data )
 
 
 //初始化VLC
-
+/**
+ * @brief cVlcKits::initVLC
+ * @return -1 实例化Instance初始化失败
+ *         -2 实例化VLC事件监听器失败
+ *         0 初始化成功
+ */
 int cVlcKits::initVLC()
 {
-    // vlc初始化
+    // 初始化libVlc实例
     m_pInstance = libvlc_new(0, nullptr);
 
     if (m_pInstance)
     {
-        //用Instance初始化一个播放器
+        //new一个VLC播放器实例
         m_pMediaPlayer = libvlc_media_player_new(m_pInstance);
         //创建成功
         if (m_pMediaPlayer)
@@ -190,24 +199,34 @@ int cVlcKits::play(const QStringList &fileNames, void *hwndd)
         if(!pMedia)
             return -1;
         libvlc_media_list_add_media(m_pMediaList,pMedia);
+        //解析pMedia 拿到视频的属性
         libvlc_media_parse(pMedia);
         libvlc_time_t _duration= libvlc_media_get_duration(pMedia);
-         std::cout<<_duration<<std::endl;
+       //  std::cout<<_duration<<std::endl;
         if(_duration<-1)
        {
             return -2;
        }
 
         m_timeVector.push_back((_duration/1000));
+
+        //释放媒体、因为Media(media_t)已经加入到播放列表media_list_t了
        libvlc_media_release(pMedia);
     }
 
     //循环播放
     libvlc_media_list_player_set_playback_mode(m_pMediaPlayerList,libvlc_playback_mode_loop);
 
+    //给VLC播放器添加媒体列表
     libvlc_media_list_player_set_media_list(m_pMediaPlayerList,m_pMediaList);
+
+    //给VLC列表播放器添加已初始化的VLC播放器MediaPlayer在构造函数中初始化
     libvlc_media_list_player_set_media_player(m_pMediaPlayerList,m_pMediaPlayer);
+
+    //设置窗口
     libvlc_media_player_set_hwnd(m_pMediaPlayer,hwndd);
+
+    //列表播放
     libvlc_media_list_player_play(m_pMediaPlayerList);
     return 0;
 }

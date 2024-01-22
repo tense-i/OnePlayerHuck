@@ -19,6 +19,7 @@ signals:
     void sig_OpenFloder(QString path);
 private:
     QPushButton *m_pBtnOpenFile=nullptr;
+    //箭头Btn
     QPushButton *m_pBtnArrow=nullptr;
     int m_totalWidth=0;
     // QObject interface

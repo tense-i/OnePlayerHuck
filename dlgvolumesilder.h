@@ -19,7 +19,7 @@ signals:
    void sig_slidervalueChanged(int value);
     // QObject interface
 public:
-    virtual bool event(QEvent *event) override;
+   virtual bool event(QEvent *event) override;
 };
 
 

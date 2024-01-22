@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include "videowidgettopwidget.h"
+#include <QAbstractNativeEventFilter>
 
 #define TIME_SLIDER_HEIGHT   20
 
@@ -17,6 +18,8 @@ VideoWidget::VideoWidget(QWidget *parent)
 {
     setAttribute(Qt::WA_StyledBackground);
     this->setAttribute(Qt::WA_OpaquePaintEvent);
+
+
     qApp->installNativeEventFilter(this);
     setMouseTracking(true);
 
@@ -37,6 +40,7 @@ VideoWidget::VideoWidget(QWidget *parent)
 
     setMinimumSize(800, 450);
 
+    //new出播放页面
     m_pTopWidget = new vIdeoWidgetTopWidget(this);
 
     connect(m_pTopWidget, &vIdeoWidgetTopWidget::sig_OpenFile, this, &VideoWidget::sig_OpenFile);
@@ -92,7 +96,11 @@ bool VideoWidget::nativeEventFilter(const QByteArray &eventType, void *message, 
     if (eventType == "windows_generic_MSG" || eventType == "windows_dispatcher_MSG") {
         MSG* pMsg = reinterpret_cast<MSG*>(message);
         //cout << "msg id = " << pMsg->message << endl;
+        //1025是系统的窗口移动事件
+        //因为播放窗口是与主窗口贴合的
+        //当移动标题栏时、播放窗口却没有移动
         if (pMsg->message == 1025) {
+            //带着移动
             QPoint pos = this->window()->mapToGlobal(QPoint(0, 0));
             //移动顶层控制窗口
             m_pTopWidget->move(pos + m_dPos);
@@ -100,5 +108,4 @@ bool VideoWidget::nativeEventFilter(const QByteArray &eventType, void *message, 
     }
     return false;
 }
-
 

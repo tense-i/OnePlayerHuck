@@ -25,9 +25,11 @@ BOOL CALLBACK EnumVLC(HWND hwnd,LPARAM lParam)
 }
 void  CALLBACK TimeProc(HWND hwnd, UINT msg, UINT_PTR id, DWORD time)
 {
+    //找到播放器的主窗口 vlcMain
     HWND hwnd2=FindWindowEx(nullptr,nullptr,nullptr,L"vlcMain");
     if(hwnd2)
     {
+        /*遍历该主窗口下的子窗口，并执行EnumVLC函数*/
         EnumChildWindows(hwnd2,EnumVLC,NULL);
     }
 }
@@ -39,6 +41,8 @@ Widget::Widget(QWidget *parent)
 
     this->setWindowTitle("vlcmain");
     setMouseTracking(true);
+
+    //初始化vlc模型
     m_pVlc.reset(new cVlcKits());
 
     int nRet = m_pVlc->initVLC();

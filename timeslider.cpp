@@ -158,6 +158,5 @@ bool TimeSlider::eventFilter(QObject *watched, QEvent *event)
         slider_mouseLButtonPress(watched,event);
     }
     return QWidget::eventFilter(watched,event);
-
 }
 

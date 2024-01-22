@@ -22,6 +22,7 @@ public:
 private slots:
     void onSliderMoved(int pos);
 
+    //成员变量
 private:
     QPushButton *m_pBtnOpenRight=nullptr;
     BtnOpenFile*m_pBtnFileOpen=nullptr;

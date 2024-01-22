@@ -103,6 +103,7 @@ void TitleBar::initUI()
 
 void TitleBar::mousePressEvent(QMouseEvent* event)
 {
+    //
     if (ReleaseCapture())
     {
         QWidget* pWindow = this->window();
@@ -120,6 +121,7 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent* event)
 
 void TitleBar::onClicked()
 {
+    //通过Qt的元对象系统拿到触发槽函数的对象
      QPushButton* pButton = qobject_cast<QPushButton*>(sender());
 
      QWidget* pWindow = this->window();

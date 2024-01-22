@@ -26,6 +26,7 @@ void DlgVolumeSilder::setSliderValue(int value)
     m_pSlider->setValue(value);
 }
 
+
 // 参考qt文档:bool QWidget::event(QEvent *event)
 // 设置popup后，dialog有窗口阴影，需要去除就重写event函数
 bool DlgVolumeSilder::event(QEvent *event)
@@ -47,3 +48,4 @@ bool DlgVolumeSilder::event(QEvent *event)
 
     return QWidget::event(event);
 }
+
